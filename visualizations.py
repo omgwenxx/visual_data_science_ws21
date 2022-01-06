@@ -7,7 +7,7 @@ import datetime
 import geopandas
 
 OUTPUTDIR = "img/"
-final_df = pd.read_csv("data/final/final_merge_region.csv")
+final_df = pd.read_csv("../data/final/final_merge_region.csv")
 
 def plot_bp_summary():
     fig, axes = plt.subplots(2, 2, figsize=(30, 20), sharey=True)
@@ -189,10 +189,10 @@ def corr_heatmap():
 
 def plot_scatterplot():
     pd.set_option("max_rows", 10)
-    wdi_df = pd.read_csv("data/final/wdi_final.csv")
+    wdi_df = pd.read_csv("../data/final/wdi_final.csv")
     wdi_columns = wdi_df.columns
 
-    edu_df = pd.read_csv("data/final/edu_stats.csv")
+    edu_df = pd.read_csv("../data/final/edu_stats.csv")
     edu_columns = edu_df.columns
 
     # Select rows which do not have NaN value in column 'score'
@@ -213,4 +213,3 @@ def plot_scatterplot():
     edu_set.dropna(axis=1, how='any', thresh=140, subset=None, inplace=False)
     edu_corr = edu_set.corr()
     edu_values = edu_corr[edu_corr["score"].abs() >= 0.75]["score"]
-

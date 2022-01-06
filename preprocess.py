@@ -143,7 +143,7 @@ def merge(save:bool = False):
     """
     edu_df = pd.read_csv("data/final/edu_stats.csv")
     wdi_df = pd.read_csv("data/final/wdi_final.csv")
-    hr_df = pd.read_csv("data/final/iso_happiness_report.csv")
+    hr_df = pd.read_csv("data/final/hr_final.csv")
     edu_df.set_index(['country', 'year'], inplace=True)
     wdi_df.set_index(['country', 'year'], inplace=True)
     hr_df.set_index(['country', 'year'], inplace=True)
@@ -156,8 +156,28 @@ def merge(save:bool = False):
 
 
     if save:
-        final_merge.to_csv('data/final/final_merge.csv')
+        final_merge.to_csv('../data/final/final_merge.csv')
 
 
-
+def create_files(new: bool = False):
+    """
+    Creates files of the different data sources and preprocessed them in order to finally merge them.
+    After this method is called, 5 files will be created: happiness report (merged over all years) as hr_report.csv,
+    educational statistics as edu_stats.csv, world development indicators as wdi_final.csv and the merged files with region
+    information (final_merge_region.csv) and without region information (final_merge.csv).
+    :param new: bool
+        Set to True if files should be saved.
+    """
+    if new:
+        preprocess_hr(True)
+        preprocess_edu(True)
+        preprocess_wdi(True)
+        merge(True)
+        merge_region()
+    else:
+        preprocess_hr()
+        preprocess_edu()
+        preprocess_wdi()
+        merge()
+        merge_region()
 
