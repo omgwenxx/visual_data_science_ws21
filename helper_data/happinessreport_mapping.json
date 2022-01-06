@@ -1,0 +1,11 @@
+{
+    "country": ["Country", "Country or region", "Country name"],
+    "score": ["Happiness Score", "Happiness.Score" , "Score", "Ladder score"],
+    "gdp_hr": ["Economy (GDP per Capita)", "Economy..GDP.per.Capita.", "GDP per capita", "Logged GDP per capita"],
+    "family": ["Family", "Social support" ],
+    "health": ["Health (Life Expectancy)", "Health..Life.Expectancy.", "Healthy life expectancy"],
+    "freedom": ["Freedom", "Freedom to make life choices"],
+    "trust": ["Trust (Government Corruption)", "Trust..Government.Corruption.", "Perceptions of corruption"],
+	"dystopia_residual" : ["Dystopia Residual","Dystopia + residual", "Dystopia.Residual"],
+    "generosity": ["Generosity"]
+}

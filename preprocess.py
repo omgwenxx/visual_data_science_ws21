@@ -16,20 +16,20 @@ def merge_region():
     final_region = final_df.merge(iso_region[["country", "region", "sub-region"]], on='country', how="left")
     final_region.to_csv('data/final/final_merge_region.csv',index=False)
 
-"""
-This menthod imputes missing data with the data of the next year
-"""
 def impute_missing_values_hr(temp):
+    """
+    This menthod imputes missing data with the data of the next year
+    """
     temp.reset_index(inplace=True)  # reset multilevel index
     temp.sort_values(["country", "year"], ignore_index=True,
                      inplace=True)  # sort by country and year for filling in next year
     temp.fillna(method="ffill", inplace=True)  # fill in value form next year 2019
     temp.set_index(['country', 'year'], inplace=True)  # set multilevel index again
 
-"""
-This method sets all names to ISO code standard e.g. Austria to AUT.
-"""
 def set_index_to_iso(dataset):
+    """
+    This method sets all names to ISO code standard e.g. Austria to AUT.
+    """
     iso_codes = pd.read_csv("data/iso-country-codes.csv")
     iso_codes = dict(zip(iso_codes['English short name lower case'].str.lower(), iso_codes['Alpha-3 code']))
     iso_codes["united states"] = "USA"
@@ -43,10 +43,10 @@ def set_index_to_iso(dataset):
     countries_df = countries_df.set_index(['country', "year"])
     return countries_df
 
-"""
-This method includes all the necessary data preprocessing for the World Happiness Report data (2015-2021)
-"""
-def preprocess_hr(save=False):
+def preprocess_hr(save:bool=False):
+    """
+    This method includes all the necessary data preprocessing for the World Happiness Report data (2015-2021)
+    """
     with open('helper_data/happinessreport_mapping.json', 'r') as openfile:
         hr_mapping = json.load(openfile)
 
@@ -93,10 +93,10 @@ def preprocess_hr(save=False):
 
     return hr_df
 
-"""
-This method includes all the necessary data preprocessing for the World Development Indicator data (2015-2020)
-"""
-def preprocess_wdi(save=False):
+def preprocess_wdi(save:bool=False):
+    """
+    This method includes all the necessary data preprocessing for the World Development Indicator data (2015-2020)
+    """
     wdi_df = pd.read_csv("data/wdi/wdi.csv")
     wdi_df.drop(wdi_df.tail(5).index, inplace=True)
     years = list(range(2015, 2021))
@@ -114,10 +114,10 @@ def preprocess_wdi(save=False):
 
     return wdi_df
 
-"""
-This method includes all the necessary data preprocessing for the Education statistics data (2015-2020)
-"""
-def preprocess_edu(save=False):
+def preprocess_edu(save:bool=False):
+    """
+    This method includes all the necessary data preprocessing for the Education statistics data (2015-2020)
+    """
     edu_df = pd.read_csv("data/edu_stats/EdStatsData.csv")
     year_drop = list(map(str, range(1970, 2015, 1)))
     year_drop2 = list(map(str, range(2025, 2101, 5)))
@@ -137,10 +137,10 @@ def preprocess_edu(save=False):
 
     return edu_df
 
-"""
-Merge datasets to one final dataset.
-"""
-def merge(save=False):
+def merge(save:bool = False):
+    """
+    Merge datasets to one final dataset.
+    """
     edu_df = pd.read_csv("data/final/edu_stats.csv")
     wdi_df = pd.read_csv("data/final/wdi_final.csv")
     hr_df = pd.read_csv("data/final/iso_happiness_report.csv")
@@ -159,6 +159,5 @@ def merge(save=False):
         final_merge.to_csv('data/final/final_merge.csv')
 
 
-merge_region()
 
 
